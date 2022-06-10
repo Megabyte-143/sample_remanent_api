@@ -1,8 +1,8 @@
-const nft_traitSchema = require('../../schemas/nft_trait/nft_trait.js');
-const marketplaceSchema = require('../../schemas/nft_asset/marketplace.js');
+const nft_traitSchema = require('./nft_trait.js');
+const marketplaceSchema = require('./marketplace.js');
 
 
-export const nftAssetSchema = {
+export const nft_assetSchema = {
     type: 'object',
     properties: {
         id: {
