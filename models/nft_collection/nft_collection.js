@@ -1,4 +1,4 @@
-const nft_traitSchema = require('../../schemas/nft_trait.js');
+const nft_traitSchema = require('../../models/nft_trait.js');
 const marketplaceSchema = require('../marketplace.js');
 const nft_assetSchema = require('../nft_asset/nft_asset.js');
 const nft_collection_statsSchema = require('./nft_collection_stats.js');
