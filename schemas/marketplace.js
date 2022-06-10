@@ -8,5 +8,8 @@ export const marketplaceSchema = {
         url: {
             type: 'string',
         },
+        accepted_currencies: {
+            type: [String],
+        },
     },
 };
