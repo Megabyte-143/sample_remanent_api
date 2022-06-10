@@ -1,9 +1,9 @@
 const nft_traitSchema = require('../../schemas/nft_trait.js');
-const marketplaceSchema = require('../../schemas/marketplace.js');
-const nft_collection_statsSchema = require('../../schemas/nft_collection_stats.js');
-const nft_collection_contractSchema = require('../../schemas/nft_collection_contract.js');
-const nft_collection_royaltySchema = require('../nft_collection_royalty.js');
+const marketplaceSchema = require('../marketplace.js');
 const nft_assetSchema = require('../nft_asset/nft_asset.js');
+const nft_collection_statsSchema = require('./nft_collection_stats.js');
+const nft_collection_contractSchema = require('./nft_collection_contract.js');
+const nft_collection_royaltySchema = require('./nft_collection_royalty.js');
 
 export const nft_collectionSchema = {
     type: 'object',
@@ -67,4 +67,5 @@ export const nft_collectionSchema = {
             token_id: nft_assetSchema.token_id,
         },
     },
+    required: ['id', 'chain', 'minted_at', 'contract', 'creators', 'editors', 'owners', 'stats', 'traits', 'status', 'royalty', 'assets'],
 };
