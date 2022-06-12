@@ -1,5 +1,5 @@
-const nft_traitSchema = require('./nft_trait.js');
-const marketplaceSchema = require('./marketplace.js');
+const nft_traitSchema = require('../nft_trait.js');
+const marketplaceSchema = require('../marketplace.js');
 
 
 export const nft_assetSchema = {
@@ -54,21 +54,16 @@ export const nft_assetSchema = {
             type: [nft_traitSchema],
         },
         status:
-
         {
             type: 'string',
-
             enum: ['LISTED_FOR_BID', 'LISTED_FOR_SALE', 'UNLISTED'],
         },
         volume: {
             type: 'string',
-
         },
         volume_currency: {
             type: 'string',
         },
-
-
         marketplaces: {
             type: [marketplaceSchema],
         }
