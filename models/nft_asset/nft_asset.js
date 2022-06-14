@@ -1,5 +1,5 @@
-const nft_traitSchema = require('../nft_trait.js');
-const marketplaceSchema = require('../marketplace.js');
+import { nft_traitSchema } from '../nft_trait.js';
+import { marketplaceSchema } from '../marketplace.js';
 
 
 export const nft_assetSchema = {
