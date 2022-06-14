@@ -1,7 +1,7 @@
-const nft_collection_royaltySchema = require('../nft_collection_royalty.js');
-const nft_collection_contractSchema = require('../nft_collection_contract.js');
+ import { nft_collection_royaltySchema } from '../nft_collection_royalty.js';  
+ import { nft_collection_contractSchema} from '../nft_collection_contract.js';
 
-export const nft_transactionSchema = {
+const nft_transactionSchema = {
     type: 'object',
     properties: {
         id: {
@@ -51,3 +51,4 @@ export const nft_transactionSchema = {
     required: ['id', 'token_id', 'nft_asset_id', 'contract', 'sender', 'creator', 'receivers', 'price', 'type', 'signature', 'royalty', 'currency', 'timestamp'],
 };
 
+export default nft_transactionSchema;
