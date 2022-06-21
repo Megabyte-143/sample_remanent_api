@@ -46,7 +46,6 @@ class nft_collectionSchema {
             editors: {
                 type: [String],
             },
-            // ! DATA NOT FOUND
             owners: {
                 type: [String],
             },
@@ -54,7 +53,6 @@ class nft_collectionSchema {
             stats: {
                 type: nft_collection_statsSchema,
             },
-            // ! DATA NOT FOUND
             traits: {
                 type: [nft_traitSchema],
             },
