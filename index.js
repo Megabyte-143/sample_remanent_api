@@ -59,17 +59,26 @@ app.get('/v1/web3/nfts/:chain_id/:ownerAdd', async (req, res) => {
 app.get('/v1/web3/nft_collections/:chain_id/:contract_address', async (req, res) => {
 
     let fetchUrl = `${baseUrl[req.params.chain_id]}/getNFTsForCollection?contractAddress=${req.params.contract_address}&withMetadata=true`;
+    let ownerDataUrl = `${baseUrl[req.params.chain_id]}/getOwnersForCollection?contractAddress=${req.params.contract_address}`;
 
-    console.log(fetchUrl);
+    // console.log(fetchUrl);
     // let nft_collection = new nft_collectionSchema();
-
+    let responseData = [];
+    let nft_collection = new nft_collectionSchema();
     const response = await fetch(fetchUrl);
+    const ownerDataResponse = await fetch(ownerDataUrl);
+    await ownerDataResponse.json().then(data => {
+        responseData.push(data);
+        
+    }).catch(err => {
+        console.log(err);
+    });
     await response.json().then(data => {
 
-        res.send(data);
+        // console.log(data);
 
         data.nfts.forEach(nft => {
-            let nft_collection = new nft_collectionSchema();
+
             nft_collection.data = {
                 id: nft.id.tokenId,
                 chain: req.params.chain_id == 137 ? 'polygon' : 'eth',
@@ -78,15 +87,27 @@ app.get('/v1/web3/nft_collections/:chain_id/:contract_address', async (req, res)
                 },
                 name: nft.title,
                 description: nft.description,
-                logo_url: nft.metadata.image,
+                // logo_url: nft.metadata.image,
                 assets: {
                     id: nft.id.tokenId,
                     name: nft.title,
                     token_id: nft.id.tokenId,
-                }
+                },
+                traits:
+                    nft.metadata.attributes.map(trait =>
+                    ({
+
+                        trait_type: trait.trait_type,
+                        value: trait.value,
+                    })),
             }
-            console.log(nft_collection);
-        })
+            // console.log(nft_collection.data.traits);
+            // console.log(nft)
+
+            responseData.push(nft_collection.data);
+        });
+        res.send(responseData);
+        // console.log(responeData);
     }).catch(err => {
         console.log(err);
     });
