@@ -16,6 +16,7 @@ class nft_assetSchema {
             chain: {
                 type: 'string',
             },
+            //! DATA NOT FOUND
             minted_at: {
                 type: 'string',
                 format: 'date-time'
@@ -32,7 +33,6 @@ class nft_assetSchema {
             associated_url: {
                 type: 'string',
             },
-            //! DATA NOT FOUND
             collection: {
                 id: {
                     type: 'string',
