@@ -3,7 +3,8 @@ import express, { urlencoded, json } from 'express';
 import fetch from 'node-fetch';
 
 // * API Models
-import nft_transactionSchema from './models/nft_transaction/nft_transaction.js';
+// import nft_transactionSchema from './models/nft_transaction/nft_transaction.js';
+import nft_assetSchema from './models/nft_asset/nft_asset.js';
 import nft_collectionSchema from './models/nft_collection/nft_collection.js';
 
 // * Initalize the app
@@ -36,11 +37,34 @@ const baseUrl = {
 app.get('/v1/web3/nfts/:chain_id/:ownerAdd', async (req, res) => {
     let fetchUrl = `${baseUrl[req.params.chain_id]}/getNFTs/?owner=${req.params.ownerAdd}`;
 
+    let nft_asset = new nft_assetSchema();
+
+    let responseData = [];
+
     const response = await fetch(fetchUrl);
 
     await response.json().then(data => {
-        console.log(data);
-        res.send(data);
+        data.ownedNfts.forEach(nft => {
+            nft_asset.data = {
+                id: nft.id.tokenId,
+                token_id: nft.id.tokenId,
+                chain: req.params.chain_id,
+                name: nft.metadata.name,
+                description: nft.metadata.description,
+                file_url: nft.metadata.image,
+                associated_url: nft.metadata.external_url,
+                // traits: nft.metadata.attributes.map(trait => {
+                //     return {
+                //         value: trait.value,
+                //         type: trait.trait_type,
+                //     };
+                // })
+                traits:[ JSON.stringify(nft.metadata.attributes)]
+                ,
+            };
+            responseData.push(nft_asset.data);
+        })
+        res.send(responseData);
     }).catch(err => {
         console.log(err);
     });
@@ -69,7 +93,7 @@ app.get('/v1/web3/nft_collections/:chain_id/:contract_address', async (req, res)
     const ownerDataResponse = await fetch(ownerDataUrl);
     await ownerDataResponse.json().then(data => {
         responseData.push(data);
-        
+
     }).catch(err => {
         console.log(err);
     });
@@ -93,13 +117,7 @@ app.get('/v1/web3/nft_collections/:chain_id/:contract_address', async (req, res)
                     name: nft.title,
                     token_id: nft.id.tokenId,
                 },
-                traits:
-                    nft.metadata.attributes.map(trait =>
-                    ({
-
-                        trait_type: trait.trait_type,
-                        value: trait.value,
-                    })),
+                traits:[ JSON.stringify(nft.metadata.attributes)],
             }
             // console.log(nft_collection.data.traits);
             // console.log(nft)
