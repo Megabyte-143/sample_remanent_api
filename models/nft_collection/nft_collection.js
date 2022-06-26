@@ -1,6 +1,6 @@
 import { nft_traitSchema } from '../nft_trait.js';
 import { marketplaceSchema } from '../marketplace.js';
-import { nft_assetSchema } from '../nft_asset/nft_asset.js';
+import nft_assetSchema  from '../nft_asset/nft_asset.js';
 import { nft_collection_statsSchema } from './nft_collection_stats.js';
 import { nft_collection_contractSchema } from '../nft_collection_contract.js';
 import { nft_collection_royaltySchema } from '../nft_collection_royalty.js';
