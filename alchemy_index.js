@@ -46,7 +46,7 @@ app.get('/v1/web3/nfts/:chain_id/:ownerAdd', async (req, res) => {
     await response.json().then(data => {
         data.ownedNfts.forEach(nft => {
             nft_asset.data = {
-                id: nft.id.tokenId,
+              
                 token_id: nft.id.tokenId,
                 chain: req.params.chain_id,
                 name: nft.metadata.name,
